@@ -1,12 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&display=swap");
-.btn_start, .box_resultat, .box_quiz, .box_user, .box_info {
+.btn_start, .box_resultat, .box_quiz, .box_user .user, .box_info {
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
 }
 
-.box_resultat, .box_quiz, .box_user, .box_info {
+.box_resultat, .box_quiz, .box_user .user, .box_info {
   width: 540px;
   background-color: #fff;
   border-radius: 5px;
@@ -46,13 +46,14 @@ button.quit:hover {
   color: #fff;
   border: none;
 }
-button.restart {
+button.continue {
   background-color: #3F0071;
   color: #fff;
 }
 
 .btn_start {
-  display: none;
+  display: block;
+  z-index: -1;
 }
 .btn_start button {
   font-size: 20px;
@@ -93,13 +94,15 @@ button.restart {
 }
 
 .box_user {
+  display: none;
+}
+.box_user .user {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
   padding: 30px 10px;
-  display: none;
 }
 .box_user .user_body {
   margin: 30px 0;
@@ -123,7 +126,7 @@ button.restart {
 }
 
 .box_quiz {
-  display: block;
+  display: none;
 }
 .box_quiz .quiz_header {
   display: flex;

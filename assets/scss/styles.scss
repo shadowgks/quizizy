@@ -28,7 +28,7 @@ button{
             border: none;
         }
     }
-    &.restart{
+    &.continue{
         background-color: $color-primary;
         color: $color-white;
     }
@@ -36,7 +36,8 @@ button{
 
 // btn_start
 .btn_start{
-    display: none;
+    display: block;
+    z-index: -1;
     @extend %center-elements;
     // Start Quize Stayling
     button{
@@ -85,14 +86,16 @@ button{
 
 // User
 .box_user{
-    @extend %box-center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 30px 10px;
     display: none;
+    .user{
+        @extend %box-center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 30px 10px;
+    }
     .user_body{
         margin: 30px 0;
         display: flex;
@@ -117,7 +120,7 @@ button{
 
 // Quiz
 .box_quiz{
-    display: block;
+    display: none;
     @extend %box-center;
     .quiz_header{
         display: flex;
