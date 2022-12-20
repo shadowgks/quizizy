@@ -30,16 +30,16 @@ button {
 }
 
 body {
-  background-color: #277BC0;
+  background-color: #3F0071;
 }
 
 button {
   padding: 12px 20px;
 }
 button.quit {
-  color: #277BC0;
+  color: #3F0071;
   background-color: #fff;
-  border: 1px solid #277BC0;
+  border: 1px solid #3F0071;
 }
 button.quit:hover {
   background-color: #dc3545;
@@ -47,7 +47,7 @@ button.quit:hover {
   border: none;
 }
 button.restart {
-  background-color: #277BC0;
+  background-color: #3F0071;
   color: #fff;
 }
 
@@ -56,12 +56,12 @@ button.restart {
 }
 .btn_start button {
   font-size: 20px;
-  color: #277BC0;
+  color: #3F0071;
   background-color: #fff;
 }
 
 .box_info {
-  display: block;
+  display: none;
 }
 .box_info .info_header {
   display: flex;
@@ -81,7 +81,7 @@ button.restart {
 }
 .box_info .info_body .info span {
   font-weight: 600;
-  color: #277BC0;
+  color: #3F0071;
 }
 .box_info .info_footer {
   display: flex;
@@ -115,15 +115,15 @@ button.restart {
   padding: 5px 10px;
   border-radius: 5px;
   border: 1px solid #d3d3d3;
-  background-color: #d4eafb;
+  background-color: #eee4f7;
 }
 .box_user .user_body input:focus {
-  outline: 2px solid #277BC0;
+  outline: 2px solid #3F0071;
   border: none;
 }
 
 .box_quiz {
-  display: none;
+  display: block;
 }
 .box_quiz .quiz_header {
   display: flex;
@@ -134,9 +134,12 @@ button.restart {
   box-shadow: 0px 15px 20px -18px rgb(66, 68, 90);
 }
 .box_quiz .quiz_header .time {
-  background-color: #277BC0;
+  background-color: #3F0071;
   color: #fff;
   padding: 12px 15px;
+}
+.box_quiz .quiz_header .time .text_time {
+  font-weight: 600;
 }
 .box_quiz .quiz_header .time .count {
   padding: 5px;
@@ -155,7 +158,7 @@ button.restart {
   justify-content: space-between;
   padding: 15px;
   margin: 15px 0;
-  background-color: #d4eafb;
+  background-color: #eee4f7;
   font-weight: 600;
 }
 .box_quiz .quiz_body .question .good {
@@ -178,7 +181,7 @@ button.restart {
   font-weight: 800;
 }
 .box_quiz .quiz_footer .next {
-  background-color: #277BC0;
+  background-color: #3F0071;
   color: #fff;
 }
 

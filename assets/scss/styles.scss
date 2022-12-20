@@ -48,7 +48,7 @@ button{
 
 // box_info
 .box_info{
-    display: block;
+    display: none;
     @extend %box-center;
     // info_header
     .info_header{
@@ -117,7 +117,7 @@ button{
 
 // Quiz
 .box_quiz{
-    display: none;
+    display: block;
     @extend %box-center;
     .quiz_header{
         display: flex;
@@ -132,6 +132,9 @@ button{
             background-color: $color-primary;
             color: $color-white;
             padding: 12px 15px;
+            .text_time{
+                font-weight: 600;
+            }
             .count{
                 padding: 5px;
                 border-radius: 5px;
