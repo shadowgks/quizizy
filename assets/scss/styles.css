@@ -1,36 +1,67 @@
-.box_info, .btn_start {
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&display=swap");
+.btn_start, .box_resultat, .box_quiz, .box_user, .box_info {
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
 }
 
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+.box_resultat, .box_quiz, .box_user, .box_info {
+  width: 540px;
+  background-color: #fff;
+  border-radius: 5px;
 }
 
-body {
-  background-color: #10A19D;
-}
-
-.btn_start button {
-  font-size: 25px;
-  font-weight: 600;
+button {
+  margin: 0 5px;
   padding: 15px 30px;
   outline: none;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  color: #10A19D;
+  font-weight: 600;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-family: "Open Sans", sans-serif;
+}
+
+body {
+  background-color: #277BC0;
+}
+
+button {
+  padding: 12px 20px;
+}
+button.quit {
+  color: #277BC0;
+  background-color: #fff;
+  border: 1px solid #277BC0;
+}
+button.quit:hover {
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+}
+button.restart {
+  background-color: #277BC0;
+  color: #fff;
+}
+
+.btn_start {
+  display: none;
+}
+.btn_start button {
+  font-size: 20px;
+  color: #277BC0;
   background-color: #fff;
 }
 
 .box_info {
-  width: 540px;
-  background-color: #fff;
-  border-radius: 5px;
+  display: block;
 }
 .box_info .info_header {
   display: flex;
@@ -50,7 +81,7 @@ body {
 }
 .box_info .info_body .info span {
   font-weight: 600;
-  color: #10A19D;
+  color: #277BC0;
 }
 .box_info .info_footer {
   display: flex;
@@ -60,15 +91,109 @@ body {
   padding: 0 35px;
   border-top: 1px solid #d3d3d3;
 }
-.box_info .info_footer button {
-  margin: 0 5px;
-  height: 40px;
-  width: 100px;
-  outline: none;
-  border: none;
-  background-color: #10A19D;
-  color: #fff;
+
+.box_user {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 30px 10px;
+  display: none;
+}
+.box_user .user_body {
+  margin: 30px 0;
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+}
+.box_user .user_body label {
+  font-weight: 700;
+}
+.box_user .user_body input {
+  margin: 10px 0;
+  padding: 5px 10px;
   border-radius: 5px;
-  cursor: pointer;
+  border: 1px solid #d3d3d3;
+  background-color: #d4eafb;
+}
+.box_user .user_body input:focus {
+  outline: 2px solid #277BC0;
+  border: none;
+}
+
+.box_quiz {
+  display: none;
+}
+.box_quiz .quiz_header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #d3d3d3;
+  padding: 15px 20px;
+  box-shadow: 0px 15px 20px -18px rgb(66, 68, 90);
+}
+.box_quiz .quiz_header .time {
+  background-color: #277BC0;
+  color: #fff;
+  padding: 12px 15px;
+}
+.box_quiz .quiz_header .time .count {
+  padding: 5px;
+  border-radius: 5px;
   font-weight: 600;
+  background-color: #dc3545;
+  margin-left: 5px;
+}
+.box_quiz .quiz_body {
+  padding: 16px 20px;
+}
+.box_quiz .quiz_body .question {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px;
+  margin: 15px 0;
+  background-color: #d4eafb;
+  font-weight: 600;
+}
+.box_quiz .quiz_body .question .good {
+  color: #28a745;
+  font-weight: bold;
+  font-size: 25px;
+}
+.box_quiz .quiz_body .question .faild {
+  color: #dc3545;
+  font-weight: bold;
+  font-size: 25px;
+}
+.box_quiz .quiz_footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 25px;
+}
+.box_quiz .quiz_footer span {
+  font-weight: 800;
+}
+.box_quiz .quiz_footer .next {
+  background-color: #277BC0;
+  color: #fff;
+}
+
+.box_resultat {
+  display: none;
+  text-align: center;
+  font-size: 30px;
+}
+.box_resultat .resultat_header {
+  font-size: 120px;
+  color: #ffc107;
+}
+.box_resultat .resultat_body .score span {
+  font-weight: 800;
+}
+.box_resultat .resultat_footer {
+  margin: 20px 0;
 }/*# sourceMappingURL=styles.css.map */

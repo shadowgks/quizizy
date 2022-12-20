@@ -1,42 +1,55 @@
+// link Google font
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&display=swap');
 @import 'var';
-%center-elements {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%,-50%);
-}
+@import 'extend';
+
+
 *{
     box-sizing: border-box;
     padding: 0;
     margin: 0;
+    font-family: 'Open Sans', sans-serif;
 }
-
 body{
     background-color: $color-primary;
 }
 
+//All btn
+button{
+    @extend %btn;
+    padding: 12px 20px;
+    &.quit{
+        color: $color-primary;
+        background-color: $color-white;
+        border: 1px solid $color-primary;
+        &:hover{
+            background-color: $color-danger;
+            color: $color-white;
+            border: none;
+        }
+    }
+    &.restart{
+        background-color: $color-primary;
+        color: $color-white;
+    }
+}
+
 // btn_start
 .btn_start{
+    display: none;
     @extend %center-elements;
     // Start Quize Stayling
     button{
-        font-size: 25px;
-        font-weight: 600;
-        padding: 15px 30px;
-        outline: none;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
+        font-size: 20px;
         color: $color-primary;
         background-color: $color-white;
     }
 }
+
 // box_info
 .box_info{
-    @extend %center-elements;
-    width: 540px;
-    background-color: $color-white;
-    border-radius: 5px;
+    display: block;
+    @extend %box-center;
     // info_header
     .info_header{
         display: flex;
@@ -59,7 +72,6 @@ body{
             }
         }
     }
-
     // info_footer
     .info_footer{
         display: flex;
@@ -68,21 +80,126 @@ body{
         align-items: center;
         padding: 0 35px;
         border-top: 1px solid $border-solid;
-        button{
-            margin: 0 5px;
-            height: 40px;
-            width: 100px;
-            outline: none;
-            border: none;
-            background-color: $color-primary;
-            color: $color-white;
+    }
+}
+
+// User
+.box_user{
+    @extend %box-center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 30px 10px;
+    display: none;
+    .user_body{
+        margin: 30px 0;
+        display: flex;
+        flex-direction: column;
+        width: 300px;
+        label{
+            font-weight: 700;
+        }
+        input{
+            margin: 10px 0;
+            padding: 5px 10px;
             border-radius: 5px;
-            cursor: pointer;
-            font-weight: 600;
-            
+            border: 1px solid $border-solid;
+            background-color: $color-primary-50;
+            &:focus{
+                outline: 2px solid $color-primary;
+                border: none;
+            }
         }
     }
-    
 }
+
+// Quiz
+.box_quiz{
+    display: none;
+    @extend %box-center;
+    .quiz_header{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid $border-solid;
+        padding: 15px 20px;
+        -webkit-box-shadow: 0px 15px 20px -18px rgba(66, 68, 90, 1);
+        -moz-box-shadow: 0px 15px 20px -18px rgba(66, 68, 90, 1);
+        box-shadow: 0px 15px 20px -18px rgba(66, 68, 90, 1);;
+        .time{
+            background-color: $color-primary;
+            color: $color-white;
+            padding: 12px 15px;
+            .count{
+                padding: 5px;
+                border-radius: 5px;
+                font-weight: 600;
+                background-color: $color-danger;
+                margin-left: 5px;
+            }
+        }
+    }
+    .quiz_body{
+        padding: 16px 20px;
+        .question{
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px;
+            margin: 15px 0;
+            background-color: $color-primary-50;
+            font-weight: 600;
+            .good{
+                color: $color-success;
+                font-weight: bold;
+                font-size: 25px;
+            }
+            .faild{
+                color: $color-danger;
+                font-weight: bold;
+                font-size: 25px;
+            }
+        }
+    }
+    .quiz_footer{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 25px;
+        span{
+            font-weight: 800;
+        }
+        .next{
+            background-color: $color-primary;
+            color: $color-white;
+        }
+    }
+}
+
+// resultat
+.box_resultat{
+    display: none;
+    @extend %box-center;
+    text-align: center;
+    font-size: 30px;
+    .resultat_header{
+        font-size: 120px;
+        color: $color-warning;
+    }
+    .resultat_body{
+        .score{
+            span{
+                font-weight: 800;
+            }
+        } 
+    }
+    .resultat_footer{
+        margin: 20px 0; 
+    }
+}
+
 
 
