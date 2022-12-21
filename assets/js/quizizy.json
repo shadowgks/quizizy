@@ -1,0 +1,112 @@
+[
+    {
+        "id" : "1",
+        "question" : "",
+        "optione" : [
+            "Amazon EC2 costs are billed on a monthly basis",
+            "Users retain full administrative access to their Amazon EC2 instances",
+            "Amazon EC2 instances can be launched on demand when neededAmazon EC2 instances can be launched on demand when needed",
+            "Users can permanently run enough instances to handle peak workloads"
+        ],
+        "answers" : "Amazon EC2 instances can be launched on demand when needed"
+    },
+    {
+        "id" : "2",
+        "question" : "",
+        "optione" : [
+            "AWS Storage Gateway",
+            "AWS Database Migration Service (AWS DMS)",
+            "Amazon EC2",
+            "Amazon AppStream 2.0"
+        ],
+        "answers" : "AWS Database Migration Service (AWS DMS)"
+    },
+    {
+        "id" : "3",
+        "question" : "",
+        "optione" : [
+            "AWS Config",
+            "AWS OpsWorks",
+            "AWS SDK",
+            "AWS Marketplace"
+        ],
+        "answers" : "AWS Marketplace"
+    },
+    {
+        "id" : "4",
+        "question" : "",
+        "optione" : [
+            "AWS Config",
+            "Amazon Route 53",
+            "AWS Direct Connect",
+            "Amazon Virtual Private Cloud (Amazon VPC)"
+        ],
+        "answers" : "Amazon Virtual Private Cloud (Amazon VPC)"
+    },
+    {
+        "id" : "5",
+        "question" : "",
+        "optione" : [
+            "Configuring third-party applications",
+            "Maintaining physical hardware",
+            "Securing application access and data",
+            "Managing guest operating systems"
+        ],
+        "answers" : "Maintaining physical hardware"
+    },
+    {
+        "id" : "6",
+        "question" : "",
+        "optione" : [
+            "AWS Regions",
+            "Edge locations",
+            "Availability Zones",
+            "Virtual Private Cloud (VPC)"
+        ],
+        "answers" : "Edge locations"
+    },
+    {
+        "id" : "7",
+        "question" : "",
+        "optione" : [
+            "Use Amazon Cloud Directory",
+            "Audit AWS Identity and Access Management (IAM) roles",
+            "Enable multi-factor authentication",
+            "Enable AWS CloudTrail"
+        ],
+        "answers" : "Enable multi-factor authentication"
+    },
+    {
+        "id" : "8",
+        "question" : "",
+        "optione" : [
+            "AWS Trusted Advisor",
+            "AWS CloudTrail",
+            "AWS X-Ray",
+            "AWS Identity and Access Management (AWS IAM)"
+        ],
+        "answers" : "AWS CloudTrail"
+    },
+    {
+        "id" : "9",
+        "question" : "",
+        "optione" : [
+            "Amazon Simple Notification Service (Amazon SNS)",
+            "AWS CloudTrail",
+            "AWS Trusted Advisor",
+            "Amazon Route 53"
+        ],
+        "answers" : "Amazon Simple Notification Service (Amazon SNS)"
+    },
+    {
+        "id" : "10",
+        "question" : "",
+        "optione" : [
+            "AWS Trusted Advisor",
+            "AWS Identity and Access Management (IAM)",
+            "AWS Billing Console",
+            "AWS Acceptable Use Policy"
+        ],
+        "answers" : "AWS Acceptable Use Policy"
+    }
+]
