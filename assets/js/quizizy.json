@@ -1,10 +1,11 @@
 [
     {
+        
         "id" : "1",
         "question" : "Why is AWS more economical than traditional data centers for applications with varying compute workloads?",
         "info" : [
-            "Amazon EC2 costs are billed on a monthly basis",
-            "Users retain full administrative access to their Amazon EC2 instances",
+            "Amazon EC2 costs are billed on a  monthly basis",
+            "Users retain full admini strative access to their Amazon EC2 instances",
             "Amazon EC2 instances can be launched on demand when neededAmazon EC2 instances can be launched on demand when needed",
             "Users can permanently run enough instances to handle peak workloads"
         ],
