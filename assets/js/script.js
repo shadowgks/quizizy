@@ -44,75 +44,95 @@ btn_continue[1].addEventListener('click',()=>{
     showQuestions(0);
 });
 
+//Ajax
+var responeOfData; // declare global variable test
+$.ajax({
+    url: "assets/js/quizizy.json",
+    type: 'GET',
+    success: function (res) {
+        responeOfData = res;
+    },
+    async: false // make ajax request synchronous
+});
 
 //if clicked btn next question
 let next_count = 0;
-let count_question = 1;
 btn_next.addEventListener('click',()=>{
-    if(next_count < 9){  //ineed fix this
+    if(next_count < responeOfData.length - 1){  //ineed fix this
         next_count++;
-        count_question++;
         showQuestions();
     }else{
         console.log("good");
     }
 })
 
+//Declared Functions
 function showQuestions(){
-    // return new Promise((resolve,reject)=>{
-    // Get Info JSON
-    let myRequest = new XMLHttpRequest();
-    myRequest.onreadystatechange = function(){
-        if(this.readyState === 4 && this.status === 200){
-            //Convert To Object JS
-            let obj_js = JSON.parse(this.responseText);
-            // resolve(objJS)
-
-            //Dec fun boxQuiz
-            boxQuiz(obj_js,next_count);
-            // //Fun Selected questions
-            // questionSelected(index);
-        }
-    }
-    myRequest.open("GET","assets/js/quizizy.json",true);
-    myRequest.send();   
-    // })
+    //Dec fun boxQuiz
+    boxQuiz(responeOfData,next_count);
 }
 
 //BoxQuizez
-function boxQuiz(data,index){
+function boxQuiz(responeOfData,index){
+    
     //Select box quiz
     const quiz_title         = document.querySelector('.box_quiz .title');
     const quiz_questions     = document.querySelector('.box_quiz .questions');
-    quiz_title.innerHTML     = '<h2>'+ data[index].id +'. '+ data[index].question +'</h2>';
-    quiz_questions.innerHTML = '<div class="question"><p>'+ data[index].info[0] +'</p></div>'
-                            + '<div class="question"><p>'+ data[index].info[1] +'</p></div>'
-                            + '<div class="question"><p>'+ data[index].info[2] +'</p></div>'
-                            + '<div class="question"><p>'+ data[index].info[3] +'</p></div>'
+    quiz_title.innerHTML     = '<h2>'+ responeOfData[index].id +'. '+ responeOfData[index].question +'</h2>';
+    quiz_questions.innerHTML = '<div class="question"><p>'+ responeOfData[index].info[0] +'</p></div>'
+                            + '<div class="question"><p>'+ responeOfData[index].info[1] +'</p></div>'
+                            + '<div class="question"><p>'+ responeOfData[index].info[2] +'</p></div>'
+                            + '<div class="question"><p>'+ responeOfData[index].info[3] +'</p></div>'
 
     //loop questions add add attribute onclick
     const question = document.querySelectorAll('.questions .question');
     question.forEach(item=>{
-        item.setAttribute('onclick','questionSelected(this,data)');
+        item.setAttribute('onclick','questionSelected(this)');
     })
 
     //Counter questions
-    countQuestions(index+1,data.length);
-    
+    countQuestions(index+1, responeOfData.length);
 }
 
 //Selected questions
 function questionSelected(answer){
     let userAnswer = answer.textContent;
-    let correctAnswer = data[next_count].answers;
+    let correctAnswer = responeOfData[next_count].answers;
     console.log(correctAnswer);
-    console.log(userAnswer);
 }
 
 // count question
-function countQuestions(n,lengthdata){
+function countQuestions(n,length_data){
     const count_question_step = document.querySelector(".quiz_footer .step");
     const count_sum_question  = document.querySelector(".quiz_footer .all");
     count_question_step.innerHTML = n;
-    count_sum_question.innerHTML  = lengthdata;
+    count_sum_question.innerHTML  = length_data;
 };
+
+
+
+
+
+
+// =========================================================
+// function showQuestions(){
+//     // // return new Promise((resolve,reject)=>{
+//     // Get Info JSON
+//     let myRequest = new XMLHttpRequest();
+//     myRequest.onreadystatechange = function(){
+//         if(this.readyState === 4 && this.status === 200){
+//             //Convert To Object JS
+//             let obj_js = JSON.parse(this.responseText);
+//             // resolve(objJS)
+
+//             //Dec fun boxQuiz
+//             boxQuiz(obj_js,next_count);
+//             // //Fun Selected questions
+//             // questionSelected(index);
+//         }
+//     }
+//     myRequest.open("GET","assets/js/quizizy.json",true);
+//     myRequest.send();
+//     // })
+// }
+// =========================================================
