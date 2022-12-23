@@ -180,6 +180,17 @@ button.continue {
   font-weight: bold;
   font-size: 25px;
 }
+.box_quiz .quiz_body .question.disabled {
+  pointer-events: none;
+}
+.box_quiz .quiz_body .question.correct {
+  background-color: #28a745;
+  color: #fff;
+}
+.box_quiz .quiz_body .question.incorrect {
+  background-color: #dc3545;
+  color: #fff;
+}
 .box_quiz .quiz_footer {
   display: flex;
   justify-content: space-between;

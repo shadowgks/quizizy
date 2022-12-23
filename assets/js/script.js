@@ -74,7 +74,10 @@ function showQuestions(){
 
 //BoxQuizez
 function boxQuiz(responeOfData,index){
-    
+
+    // let rand_data = responeOfData[Math.floor(Math.random() * responeOfData.length)];
+    // let rand_data = responeOfData[sort(()=>Math.random() - 0,5)];
+    // console.log(rand_data);
     //Select box quiz
     const quiz_title         = document.querySelector('.box_quiz .title');
     const quiz_questions     = document.querySelector('.box_quiz .questions');
@@ -94,11 +97,41 @@ function boxQuiz(responeOfData,index){
     countQuestions(index+1, responeOfData.length);
 }
 
+let sum = 0;
 //Selected questions
 function questionSelected(answer){
     let userAnswer = answer.textContent;
     let correctAnswer = responeOfData[next_count].answers;
-    console.log(correctAnswer);
+    const question = document.querySelectorAll('.questions .question');
+    
+    if(userAnswer === correctAnswer){
+        console.log("Answer Correct");
+        answer.classList.add("correct");
+        sum +=10;
+        console.log(sum);
+    }else{
+        console.log("Answer Incorrect");
+        answer.classList.add("incorrect");
+
+        //auto selected answer question
+        question.forEach(item => {
+            // if(item.children.textContent == correctAnswer){
+            //     answer.setAttribute("class","question correct")
+            // }
+            console.log(item.children.textContent);
+        })
+    }
+    
+    question.forEach(item=>{
+        item.classList.add("disabled");
+        // console.log(item);
+    })
+    //loop questions and disabled him
+    // console.log(question[0]);
+    // question.forEach(item=>{
+    //     // item.setAttribute('onclick','questionSelected(this)');
+    //     console.log(item);
+    // })
 }
 
 // count question

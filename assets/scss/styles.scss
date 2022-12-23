@@ -173,6 +173,17 @@ button{
                 font-weight: bold;
                 font-size: 25px;
             }
+            &.disabled{
+                pointer-events: none;
+            }
+            &.correct{
+                background-color: $color-success;
+                color: $color-white;
+            }
+            &.incorrect{
+                background-color: $color-danger;
+                color: $color-white;
+            }
         }
     }
     .quiz_footer{
