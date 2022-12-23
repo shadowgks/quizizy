@@ -97,41 +97,38 @@ function boxQuiz(responeOfData,index){
     countQuestions(index+1, responeOfData.length);
 }
 
-let sum = 0;
+let incrument_answer = 0;
 //Selected questions
 function questionSelected(answer){
-    let userAnswer = answer.textContent;
-    let correctAnswer = responeOfData[next_count].answers;
+    let user_answer = answer.textContent;
+    let correct_answer = responeOfData[next_count].answers;
     const question = document.querySelectorAll('.questions .question');
-    
-    if(userAnswer === correctAnswer){
+    const icon_correct = '<i class="fa-regular fa-circle-check good"></i>';
+    const icon_incorrect = '<i class="fa-regular fa-circle-xmark faild"></i>';
+
+    if(user_answer === correct_answer){
         console.log("Answer Correct");
         answer.classList.add("correct");
-        sum +=10;
-        console.log(sum);
+        incrument_answer +=10;
+        answer.insertAdjacentHTML('beforeend',icon_correct);
     }else{
         console.log("Answer Incorrect");
         answer.classList.add("incorrect");
+        answer.insertAdjacentHTML('beforeend',icon_incorrect);
 
-        //auto selected answer question
+        //auto selected correct answer
         question.forEach(item => {
-            // if(item.children.textContent == correctAnswer){
-            //     answer.setAttribute("class","question correct")
-            // }
-            console.log(item.children.textContent);
+            if(item.textContent == correct_answer){
+                item.setAttribute("class","question correct");
+                item.insertAdjacentHTML('beforeend',icon_correct);
+            }
         })
     }
-    
+
+    //loop questions and disabled him
     question.forEach(item=>{
         item.classList.add("disabled");
-        // console.log(item);
     })
-    //loop questions and disabled him
-    // console.log(question[0]);
-    // question.forEach(item=>{
-    //     // item.setAttribute('onclick','questionSelected(this)');
-    //     console.log(item);
-    // })
 }
 
 // count question

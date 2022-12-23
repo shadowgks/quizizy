@@ -171,12 +171,12 @@ button.continue {
           animation-duration: 0.5s;
 }
 .box_quiz .quiz_body .question .good {
-  color: #28a745;
+  color: #fff;
   font-weight: bold;
   font-size: 25px;
 }
 .box_quiz .quiz_body .question .faild {
-  color: #dc3545;
+  color: #fff;
   font-weight: bold;
   font-size: 25px;
 }
