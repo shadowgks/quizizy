@@ -197,6 +197,11 @@ button{
         .next{
             background-color: $color-primary;
             color: $color-white;
+            &[disabled]{
+                background-color: $color-primary-25;
+                color: $color-dark;
+                font-weight: 600;
+            }
         }
     }
 }

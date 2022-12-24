@@ -204,6 +204,11 @@ button.continue {
   background-color: #3F0071;
   color: #fff;
 }
+.box_quiz .quiz_footer .next[disabled] {
+  background-color: #efe1f9;
+  color: #000;
+  font-weight: 600;
+}
 
 .box_resultat {
   display: none;
