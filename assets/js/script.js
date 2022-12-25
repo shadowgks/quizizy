@@ -4,6 +4,7 @@ const box_info          = document.querySelector(".box_info");
 const box_user          = document.querySelector(".box_user");
 const box_resultat      = document.querySelector(".box_resultat");
 const box_quiz          = document.querySelector(".box_quiz");
+const box_answers       = document.querySelector(".box_answers");
 //Btns
 const btn_end           = document.querySelectorAll("button.quit");
 const btn_continue      = document.querySelectorAll("button.continue");
@@ -44,8 +45,9 @@ btn_continue[0].addEventListener('click',()=>{
 
 let name_user;
 btn_continue[1].addEventListener('click',()=>{
+    //check value user
     if(user_input.value === ''){
-        alert('Please enre your name!');
+        alert('Please entre your name!');
     }else{
         box_user.style.display = 'none';
         box_quiz.style.display = 'block';
@@ -59,14 +61,18 @@ btn_continue[1].addEventListener('click',()=>{
     }
 });
     
+btn_continue[2].addEventListener('click',()=>{
+    box_resultat.style.display = 'none';
+    box_answers.style.display = 'block';
+});
 // ===========================================================================
 //Ajax
-let responeOfData; // declare global variable test
+let reponseOfData; // declare global variable test
 $.ajax({
     url: "assets/js/quizizy.json",
     type: 'GET',
     success: function (res) {
-        responeOfData = res;
+        reponseOfData = res;
     },
     async: false // make ajax request synchronous
 });
@@ -75,7 +81,7 @@ $.ajax({
 //if clicked btn next question
 let next_count = 0;
 btn_next.addEventListener('click',()=>{
-    if(next_count < responeOfData.length - 1){  //ineed fix this
+    if(next_count < reponseOfData.length - 1){
         next_count++;
         showData(next_count);
         clearInterval(counter_interval);
@@ -90,27 +96,22 @@ btn_next.addEventListener('click',()=>{
 // ===========================================================================
 //BoxQuizez
 function showData(index){
+    //Get data for random questions
+    const rand_data = reponseOfData.sort(()=>Math.random() - 0.5);
+    const arr = [0,1,2,3];
+    const rand_data_menu = arr.sort(()=>Math.random() - 0.5);
 
-    // let rand_data = responeOfData[Math.floor(Math.random() * responeOfData.length)];
-    // let rand_data = responeOfData[sort(()=>Math.random() - 0,5)];
-    // console.log(rand_data);
     //Select box quiz
     const quiz_title         = document.querySelector('.box_quiz .title');
     const quiz_questions     = document.querySelector('.box_quiz .questions');
-    quiz_title.innerHTML     = '<h2>'+ responeOfData[index].question +'</h2>';
-    quiz_questions.innerHTML = '<div class="question"><p>'+ responeOfData[index].info[0] +'</p></div>'
-                            + '<div class="question"><p>'+ responeOfData[index].info[1] +'</p></div>'
-                            + '<div class="question"><p>'+ responeOfData[index].info[2] +'</p></div>'
-                            + '<div class="question"><p>'+ responeOfData[index].info[3] +'</p></div>'
-
-    //loop questions add add attribute onclick
-    const question = document.querySelectorAll('.questions .question');
-    question.forEach(item=>{
-        item.setAttribute('onclick','questionSelected(this)');
-    })
+    quiz_title.innerHTML     = '<h2>'+ (index+1) +' - '+ rand_data[index].question +'</h2>';
+    quiz_questions.innerHTML = '<div class="question" onclick="questionSelected(this)"><p>'+ rand_data[index].info[rand_data_menu[0]] +'</p></div>'
+                             + '<div class="question" onclick="questionSelected(this)"><p>'+ rand_data[index].info[rand_data_menu[1]] +'</p></div>'
+                             + '<div class="question" onclick="questionSelected(this)"><p>'+ rand_data[index].info[rand_data_menu[2]] +'</p></div>'
+                             + '<div class="question" onclick="questionSelected(this)"><p>'+ rand_data[index].info[rand_data_menu[3]] +'</p></div>';
 
     //Counter questions
-    countQuestions(index+1, responeOfData.length);
+    countQuestions(index+1, reponseOfData.length);
 
     //btn next add disabled
     btn_next.disabled = true;
@@ -119,22 +120,20 @@ function showData(index){
 // ===========================================================================
 //Selected questions
 function questionSelected(answer){
-    let user_answer     = answer.textContent;
-    let correct_answer  = responeOfData[next_count].answers;
-    const question      = document.querySelectorAll('.questions .question');
+    const user_answer     = answer.textContent;
+    const correct_answer  = reponseOfData[next_count].answers;
+    const question        = document.querySelectorAll('.questions .question');
 
     //Clear Interval
     clearInterval(counter_interval);
 
     if(user_answer === correct_answer){
-        console.log("Answer Correct");
         answer.classList.add("correct");
         incrument_answer++;
         answer.insertAdjacentHTML('beforeend',icon_correct);
         //btn next remove disabled
         btn_next.disabled = false;
     }else{
-        console.log("Answer Incorrect");
         answer.classList.add("incorrect");
         answer.insertAdjacentHTML('beforeend',icon_incorrect);
         //btn next remove disabled
@@ -147,6 +146,17 @@ function questionSelected(answer){
                 item.insertAdjacentHTML('beforeend',icon_correct);
             }
         })
+
+        //Final Page afficher answers user
+        //Select Elements
+        const answers_body = document.querySelector('.box_answers .answers_body');
+        answers_body.innerHTML += '<h3>'+ reponseOfData[next_count].question +'</h3>'
+                                + '<p class="answer">'+ correct_answer +'</span>'
+                                + '<p class="your_answer">'+ user_answer +'</span>'
+                                + '<hr>';
+        console.log(reponseOfData[next_count].question);
+        console.log(correct_answer);
+        console.log(user_answer);
     }
 
     //loop questions and disabled him
@@ -154,6 +164,7 @@ function questionSelected(answer){
         item.classList.add("disabled");
     })
 }
+
 
 // ===========================================================================
 // count question
@@ -172,7 +183,7 @@ let counter_interval;
 let time_value = 30;
 function startTimer(time){
     function timer(){
-        let correct_answer          = responeOfData[next_count].answers;
+        const correct_answer        = reponseOfData[next_count].answers;
         const question              = document.querySelectorAll('.questions .question');
         span_time_count.textContent = time;
         time--;
@@ -180,7 +191,6 @@ function startTimer(time){
             clearInterval(counter_interval);
             //auto selected correct answer
             question.forEach(item => {
-                console.log(item.textContent);
                 if(item.textContent == correct_answer){
                     item.setAttribute("class","question correct");
                     item.insertAdjacentHTML('beforeend',icon_correct);
@@ -202,5 +212,5 @@ function resultatUser(){
 
     span_user.textContent = name_user;
     span_resultat.children[0].textContent = incrument_answer;
-    span_resultat.children[1].textContent = responeOfData.length;
+    span_resultat.children[1].textContent = reponseOfData.length;
 }

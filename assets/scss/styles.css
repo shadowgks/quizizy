@@ -3,7 +3,7 @@
   position: absolute;
   left: 50%;
   top: 50%;
-  transform: translate(-50%, -50%) scale(1);
+  transform: translate(-50%, -50%);
 }
 
 .box_resultat, .box_quiz, .box_user .user, .box_info {
@@ -224,4 +224,41 @@ button.continue {
 }
 .box_resultat .resultat_footer {
   margin: 20px 0;
+}
+
+.box_answers .answers_body .your_answer, .box_answers .answers_body .answer {
+  color: #fff;
+  font-weight: 600;
+  padding: 20px 10px;
+  margin: 15px 0;
+}
+
+.box_answers {
+  display: none;
+  width: 500px;
+  margin: 15px auto;
+  background-color: #fff;
+}
+.box_answers .answers_header {
+  text-align: center;
+  padding: 20px 0;
+}
+.box_answers .answers_body {
+  padding: 20px 15px;
+}
+.box_answers .answers_body .answer {
+  background-color: #28a745;
+}
+.box_answers .answers_body .your_answer {
+  background-color: #dc3545;
+}
+.box_answers .answers_body hr {
+  width: 25%;
+  margin: 8px auto;
+}
+.box_answers .answers_footer {
+  text-align: center;
+}
+.box_answers .answers_footer .quit {
+  margin-bottom: 20px;
 }/*# sourceMappingURL=styles.css.map */

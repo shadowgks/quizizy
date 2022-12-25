@@ -3,7 +3,6 @@
 @import 'var';
 @import 'extend';
 
-
 *{
     box-sizing: border-box;
     padding: 0;
@@ -225,6 +224,45 @@ button{
     }
     .resultat_footer{
         margin: 20px 0; 
+    }
+}
+
+// resultat
+%answers{
+    color: $color-white;
+    font-weight: 600;
+    padding: 20px 10px;
+    margin: 15px 0;
+}
+.box_answers{
+    display: none;
+    width: 500px;
+    margin: 15px auto;
+    background-color: $color-white;
+    .answers_header{
+        text-align: center;
+        padding: 20px 0;
+    }
+    .answers_body{
+        padding: 20px 15px;
+        .answer{
+            background-color: $color-success;
+            @extend %answers;
+        }
+        .your_answer{
+            background-color: $color-danger;
+            @extend %answers;
+        }
+        hr{
+            width: 25%;
+            margin: 8px auto;
+        }
+    }
+    .answers_footer{
+        text-align: center;
+        .quit{
+            margin-bottom: 20px;
+        }
     }
 }
 
