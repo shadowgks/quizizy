@@ -17,7 +17,7 @@ const icon_incorrect    = '<i class="fa-regular fa-circle-xmark faild"></i>';
 //user input
 const user_input        = document.querySelector('#name_user');
 //count score user
-let incrument_answer = 0;
+let icrument_correct_answer = 0;
 
 // ===========================================================================
 //if clicked btn start Quiz
@@ -95,20 +95,19 @@ btn_next.addEventListener('click',()=>{
 
 // ===========================================================================
 //BoxQuizez
+//Get data for random questions
+const rand_data = reponseOfData.sort(()=>Math.random() - 0.5);
+const arr = [0,1,2,3];
+const rand_data_menu = arr.sort(()=>Math.random() - 0.5);
 function showData(index){
-    //Get data for random questions
-    const rand_data = reponseOfData.sort(()=>Math.random() - 0.5);
-    const arr = [0,1,2,3];
-    const rand_data_menu = arr.sort(()=>Math.random() - 0.5);
-
     //Select box quiz
     const quiz_title         = document.querySelector('.box_quiz .title');
     const quiz_questions     = document.querySelector('.box_quiz .questions');
     quiz_title.innerHTML     = '<h2>'+ (index+1) +' - '+ rand_data[index].question +'</h2>';
-    quiz_questions.innerHTML = '<div class="question" onclick="questionSelected(this)"><p>'+ rand_data[index].info[rand_data_menu[0]] +'</p></div>'
-                             + '<div class="question" onclick="questionSelected(this)"><p>'+ rand_data[index].info[rand_data_menu[1]] +'</p></div>'
-                             + '<div class="question" onclick="questionSelected(this)"><p>'+ rand_data[index].info[rand_data_menu[2]] +'</p></div>'
-                             + '<div class="question" onclick="questionSelected(this)"><p>'+ rand_data[index].info[rand_data_menu[3]] +'</p></div>';
+    quiz_questions.innerHTML =    '<div class="question" onclick="questionSelected(this)"><p>'+ rand_data[index].info[rand_data_menu[0]] +'</p></div>'
+                                + '<div class="question" onclick="questionSelected(this)"><p>'+ rand_data[index].info[rand_data_menu[1]] +'</p></div>'
+                                + '<div class="question" onclick="questionSelected(this)"><p>'+ rand_data[index].info[rand_data_menu[2]] +'</p></div>'
+                                + '<div class="question" onclick="questionSelected(this)"><p>'+ rand_data[index].info[rand_data_menu[3]] +'</p></div>';
 
     //Counter questions
     countQuestions(index+1, reponseOfData.length);
@@ -116,10 +115,12 @@ function showData(index){
     //btn next add disabled
     btn_next.disabled = true;
 }
+console.log(Math.random());
 
 // ===========================================================================
 //Selected questions
 function questionSelected(answer){
+    console.log(next_count);
     const user_answer     = answer.textContent;
     const correct_answer  = reponseOfData[next_count].answers;
     const question        = document.querySelectorAll('.questions .question');
@@ -129,7 +130,7 @@ function questionSelected(answer){
 
     if(user_answer === correct_answer){
         answer.classList.add("correct");
-        incrument_answer++;
+        icrument_correct_answer++;
         answer.insertAdjacentHTML('beforeend',icon_correct);
         //btn next remove disabled
         btn_next.disabled = false;
@@ -150,10 +151,16 @@ function questionSelected(answer){
         //Final Page afficher answers user
         //Select Elements
         const answers_body = document.querySelector('.box_answers .answers_body');
-        answers_body.innerHTML += '<h3>'+ reponseOfData[next_count].question +'</h3>'
-                                + '<p class="answer">'+ correct_answer +'</span>'
-                                + '<p class="your_answer">'+ user_answer +'</span>'
-                                + '<hr>';
+        answers_body.innerHTML += '<div class="row">'
+                                + '<h3>'+ reponseOfData[next_count].id +' - '+ reponseOfData[next_count].question +'</h3>'
+                                + '<div class="col"><span>Your Answer</span>'
+                                + '<p class="your_answer">'+ user_answer +'</p>'
+                                + '<span>Correct Answer</span>'
+                                + '<p class="answer">'+ correct_answer +'</p>'
+                                + '<span>Explication</span>'
+                                + '<p class="explication">'+ reponseOfData[next_count].explication +'</p>'
+                                + '</div><hr>'
+                                +'</div>';
         console.log(reponseOfData[next_count].question);
         console.log(correct_answer);
         console.log(user_answer);
@@ -211,6 +218,6 @@ function resultatUser(){
     const span_user     = document.querySelector(".box_resultat .name_user h4");
 
     span_user.textContent = name_user;
-    span_resultat.children[0].textContent = incrument_answer;
+    span_resultat.children[0].textContent = icrument_correct_answer;
     span_resultat.children[1].textContent = reponseOfData.length;
 }
