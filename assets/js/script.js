@@ -120,7 +120,7 @@ console.log(Math.random());
 // ===========================================================================
 //Selected questions
 function questionSelected(answer){
-    console.log(next_count);
+    //select
     const user_answer     = answer.textContent;
     const correct_answer  = reponseOfData[next_count].answers;
     const question        = document.querySelectorAll('.questions .question');
@@ -205,6 +205,11 @@ function startTimer(time){
             })
             //btn next remove disabled
             btn_next.disabled = false;
+
+            //loop questions and disabled him
+            question.forEach(item=>{
+            item.classList.add("disabled");
+            })
         }
     }
     counter_interval = setInterval(timer,1000);
