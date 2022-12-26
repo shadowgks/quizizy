@@ -16,6 +16,8 @@ const icon_correct      = '<i class="fa-regular fa-circle-check good"></i>';
 const icon_incorrect    = '<i class="fa-regular fa-circle-xmark faild"></i>';
 //user input
 const user_input        = document.querySelector('#name_user');
+//img logo
+const img_logo          = document.querySelector('.logo_image_side');
 //count score user
 let icrument_correct_answer = 0;
 
@@ -24,6 +26,7 @@ let icrument_correct_answer = 0;
 btn_start.addEventListener('click',()=>{
     box_info.style.display  = 'block';
     btn_start.style.display = 'none';
+    img_logo.style.display  = 'none';
 });
 
 //if clicked btn end Quiz
@@ -65,6 +68,7 @@ btn_continue[2].addEventListener('click',()=>{
     box_resultat.style.display = 'none';
     box_answers.style.display = 'block';
 });
+
 // ===========================================================================
 //Ajax
 let reponseOfData; // declare global variable test

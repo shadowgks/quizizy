@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&display=swap");
-.btn_start, .box_resultat, .box_quiz, .box_user .user, .box_info {
+.box_answers, .btn_start, .logo_image_side, .box_resultat, .box_quiz, .box_user .user, .box_info {
   position: absolute;
   left: 50%;
   top: 50%;
@@ -22,6 +22,10 @@ button {
   font-weight: 600;
 }
 
+.box_answers .answers_body .row .col, .box_answers, .box_resultat, .box_quiz, .box_user, .box_info, .btn_start button {
+  box-shadow: -4px 6px 50px -8px rgba(255, 255, 255, 0.8);
+}
+
 * {
   box-sizing: border-box;
   padding: 0;
@@ -29,8 +33,20 @@ button {
   font-family: "Open Sans", sans-serif;
 }
 
-body {
-  background-color: #3F0071;
+.bg_image {
+  /* The image used */
+  background-image: url("../img/22033.jpg");
+  /* Full height */
+  height: 100vh;
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.logo_image_side {
+  width: 350px;
+  top: 30%;
 }
 
 button {
@@ -237,7 +253,8 @@ button.continue {
 .box_answers {
   display: none;
   width: 500px;
-  margin: 20px auto;
+  height: 600px;
+  overflow: auto;
   background-color: #fff;
 }
 .box_answers .answers_header {
@@ -262,7 +279,6 @@ button.continue {
   margin: 0 0 12px 0;
 }
 .box_answers .answers_body .row .col {
-  box-shadow: -4px 6px 15px -8px rgba(0, 0, 0, 0.8);
   border: 1px solid #000;
   padding: 12px;
   margin: 15px 0;

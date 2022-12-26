@@ -9,8 +9,26 @@
     margin: 0;
     font-family: 'Open Sans', sans-serif;
 }
-body{
-    background-color: $color-primary;
+
+//Background page
+.bg_image {
+    /* The image used */
+    background-image: url("../img/22033.jpg");
+  
+    /* Full height */
+    height: 100vh;
+  
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+//logo
+.logo_image_side{
+    @extend %center-elements;
+    width: 350px;
+    top: 30%;
 }
 
 //All btn
@@ -40,6 +58,7 @@ button{
     transform: translate(-50%,-50%) scale(2);
     // Start Quize Stayling
     button{
+        @extend %shadow;
         font-size: 20px;
         color: $color-primary;
         background-color: $color-white;
@@ -49,6 +68,7 @@ button{
 // box_info
 .box_info{
     display: none;
+    @extend %shadow;
     @extend %box-center;
     // info_header
     .info_header{
@@ -86,6 +106,7 @@ button{
 // User
 .box_user{
     display: none;
+    @extend %shadow;
     .user{
         @extend %box-center;
         display: flex;
@@ -118,6 +139,7 @@ button{
 .box_quiz{
     display: none;
     @extend %box-center;
+    @extend %shadow;
     .quiz_header{
         display: flex;
         align-items: center;
@@ -207,6 +229,7 @@ button{
 .box_resultat{
     display: none;
     @extend %box-center;
+    @extend %shadow;
     text-align: center;
     font-size: 30px;
     .resultat_header{
@@ -235,8 +258,11 @@ button{
 }
 .box_answers{
     display: none;
+    @extend %center-elements;
+    @extend %shadow;
     width: 500px;
-    margin: 20px auto;
+    height: 600px;
+    overflow: auto;
     background-color: $color-white;
     .answers_header{
         text-align: center;
@@ -263,7 +289,7 @@ button{
         }
         .row{
             .col{
-                box-shadow: -4px 6px 15px -8px rgba(0,0,0,0.8);
+                @extend %shadow;
                 border: 1px solid $color-dark;
                 padding: 12px;
                 margin: 15px 0;
