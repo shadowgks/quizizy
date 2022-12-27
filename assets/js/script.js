@@ -36,6 +36,7 @@ btn_end.forEach(end => {
         box_info.style.display     = 'none';
         box_user.style.display     = 'none';
         box_resultat.style.display = 'none';
+        box_answers.style.display  = 'none';
         btn_start.style.display    = 'block';
         window.location.reload();
     })
@@ -141,10 +142,9 @@ function questionSelected(answer){
     
     //btn submit turn false
     btn_submit.disabled = false;
-    // //Clear Interval
-    // clearInterval(counter_interval);
 }
 
+//if click btn submit
 btn_submit.addEventListener("click",()=>{
     //Select Element
     const correct_answer  = reponseOfData[next_count].answers;
@@ -168,6 +168,20 @@ btn_submit.addEventListener("click",()=>{
         btn_next.disabled = false;
         //btn submit turn false
         btn_submit.disabled = true;
+
+        //Final partie Correction Answers Users Here!
+        //Select Elements
+        const answers_body = document.querySelector('.box_answers .answers_body');
+        answers_body.innerHTML += '<div class="row">'
+                                + '<h3>'+ reponseOfData[next_count].id +' - '+ reponseOfData[next_count].question +'</h3>'
+                                + '<div class="col"><span>Your Answer</span>'
+                                + '<p class="your_answer">'+ user_answer.textContent +'</p>'
+                                + '<span>Correct Answer</span>'
+                                + '<p class="answer">'+ correct_answer +'</p>'
+                                + '<span>Explication</span>'
+                                + '<p class="explication">'+ reponseOfData[next_count].explication +'</p>'
+                                + '</div><hr>'
+                                +'</div>';
     }
 
     //loop questions and disabled him
@@ -190,7 +204,7 @@ function countQuestions(n,length_data){
 //Counter interval 
 let counter_interval;
 //Time value
-let time_value = 30;
+let time_value = 5;
 function startTimer(time){
     function timer(){
         const correct_answer        = reponseOfData[next_count].answers;
@@ -206,8 +220,10 @@ function startTimer(time){
                     item.insertAdjacentHTML('beforeend',icon_correct);
                 }
             })
-            //btn next remove disabled
+            //btn next turn true
             btn_next.disabled = false;
+            //btn submit turn false
+            btn_submit.disabled = true;
 
             //loop questions and disabled him
             question.forEach(item=>{
@@ -228,24 +244,4 @@ function resultatUser(){
     span_user.textContent = name_user;
     span_resultat.children[0].textContent = icrument_correct_answer;
     span_resultat.children[1].textContent = reponseOfData.length;
-}
-
-// ===========================================================================
-//Final parte afficher answers user
-function afficherAnswers(){
-    //Select Elements
-    const answers_body = document.querySelector('.box_answers .answers_body');
-    answers_body.innerHTML += '<div class="row">'
-                            + '<h3>'+ reponseOfData[next_count].id +' - '+ reponseOfData[next_count].question +'</h3>'
-                            + '<div class="col"><span>Your Answer</span>'
-                            + '<p class="your_answer">'+ user_answer +'</p>'
-                            + '<span>Correct Answer</span>'
-                            + '<p class="answer">'+ correct_answer +'</p>'
-                            + '<span>Explication</span>'
-                            + '<p class="explication">'+ reponseOfData[next_count].explication +'</p>'
-                            + '</div><hr>'
-                            +'</div>';
-    // console.log(reponseOfData[next_count].question);
-    // console.log(correct_answer);
-    // console.log(user_answer);
 }
