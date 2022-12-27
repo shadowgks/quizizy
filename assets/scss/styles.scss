@@ -24,13 +24,6 @@
     background-size: cover;
 }
 
-//logo
-.logo_image_side{
-    @extend %center-elements;
-    width: 350px;
-    top: 30%;
-}
-
 //All btn
 button{
     @extend %btn;
@@ -55,7 +48,13 @@ button{
 .btn_start{
     display: block;
     @extend %center-elements;
-    transform: translate(-50%,-50%) scale(2);
+    display: flex;
+    flex-direction: column;
+    transform: translate(-50%,-50%) scale(1);
+    //logo
+    .logo_image_side{
+        width: 300px
+    }
     // Start Quize Stayling
     button{
         @extend %shadow;
@@ -182,6 +181,10 @@ button{
                 animation: pulse; 
                 animation-duration: 0.5s;
             }
+            &.selected{
+                background-color: $color-primary;
+                color: $color-white;
+            }
             .good{
                 color: $color-white;
                 font-weight: bold;
@@ -215,6 +218,15 @@ button{
         }
         .next{
             background-color: $color-primary;
+            color: $color-white;
+            &[disabled]{
+                background-color: $color-primary-25;
+                color: $color-dark;
+                font-weight: 600;
+            }
+        }
+        .submit{
+            background-color: $color-success;
             color: $color-white;
             &[disabled]{
                 background-color: $color-primary-25;

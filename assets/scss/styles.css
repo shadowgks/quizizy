@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&display=swap");
-.box_answers, .btn_start, .logo_image_side, .box_resultat, .box_quiz, .box_user .user, .box_info {
+.box_answers, .btn_start, .box_resultat, .box_quiz, .box_user .user, .box_info {
   position: absolute;
   left: 50%;
   top: 50%;
@@ -44,11 +44,6 @@ button {
   background-size: cover;
 }
 
-.logo_image_side {
-  width: 350px;
-  top: 30%;
-}
-
 button {
   padding: 12px 20px;
 }
@@ -69,7 +64,12 @@ button.continue {
 
 .btn_start {
   display: block;
-  transform: translate(-50%, -50%) scale(2);
+  display: flex;
+  flex-direction: column;
+  transform: translate(-50%, -50%) scale(1);
+}
+.btn_start .logo_image_side {
+  width: 300px;
 }
 .btn_start button {
   font-size: 20px;
@@ -186,6 +186,10 @@ button.continue {
   -webkit-animation-duration: 0.5s;
           animation-duration: 0.5s;
 }
+.box_quiz .quiz_body .question.selected {
+  background-color: #3F0071;
+  color: #fff;
+}
 .box_quiz .quiz_body .question .good {
   color: #fff;
   font-weight: bold;
@@ -225,6 +229,15 @@ button.continue {
   color: #000;
   font-weight: 600;
 }
+.box_quiz .quiz_footer .submit {
+  background-color: #28a745;
+  color: #fff;
+}
+.box_quiz .quiz_footer .submit[disabled] {
+  background-color: #efe1f9;
+  color: #000;
+  font-weight: 600;
+}
 
 .box_resultat {
   display: none;
@@ -233,7 +246,7 @@ button.continue {
 }
 .box_resultat .resultat_header {
   font-size: 120px;
-  color: rgba(213, 163, 11, 0.8196078431);
+  color: rgba(184, 140, 5, 0.8196078431);
 }
 .box_resultat .resultat_body .score span {
   font-weight: 800;
@@ -275,7 +288,7 @@ button.continue {
   margin: 0 0 12px 0;
 }
 .box_answers .answers_body .explication {
-  background-color: rgba(213, 163, 11, 0.8196078431);
+  background-color: rgba(184, 140, 5, 0.8196078431);
   margin: 0 0 12px 0;
 }
 .box_answers .answers_body .row .col {
