@@ -64,7 +64,7 @@ btn_continue[1].addEventListener('click',()=>{
         name_user = user_input.value;
 
         //Dec Fun time and data
-        showData(next_count);
+        showData(0);
         startTimer(time_value);
     }
 });
@@ -89,18 +89,22 @@ $.ajax({
 // ===========================================================================
 //if clicked btn next question
 let next_count = 0;
-btn_next.addEventListener('click',()=>{
+btn_next.addEventListener('click',nextQuestions);
+
+function nextQuestions(){
+    
     if(next_count < reponseOfData.length - 1){
         next_count++;
         showData(next_count);
         clearInterval(counter_interval);
         startTimer(time_value);
+        // btn_next.disabled = true;
     }else{
         box_quiz.style.display = 'none';
         box_resultat.style.display = 'block';
         resultatUser();
     }
-})
+}
 
 // ===========================================================================
 //BoxQuizez
@@ -150,9 +154,11 @@ btn_submit.addEventListener("click",()=>{
     const correct_answer  = reponseOfData[next_count].answers;
     const question        = document.querySelectorAll('.questions .question');
 
+    //Clear Interval
+    clearInterval(counter_interval);
+
     //Check Answer
     if(user_answer.textContent === correct_answer){
-        console.log('correct');
         user_answer.classList.add("correct");
         icrument_correct_answer++;
         user_answer.insertAdjacentHTML('beforeend',icon_correct);
@@ -161,7 +167,6 @@ btn_submit.addEventListener("click",()=>{
         //btn submit turn false
         btn_submit.disabled = true;
     }else{
-        console.log('incorrect');
         user_answer.classList.add("incorrect");
         user_answer.insertAdjacentHTML('beforeend',icon_incorrect);
         //btn next turn true
@@ -213,6 +218,7 @@ function startTimer(time){
         time--;
         if(time < 0){
             clearInterval(counter_interval);
+
             //auto selected correct answer
             question.forEach(item => {
                 if(item.textContent == correct_answer){
@@ -220,6 +226,7 @@ function startTimer(time){
                     item.insertAdjacentHTML('beforeend',icon_correct);
                 }
             })
+            
             //btn next turn true
             btn_next.disabled = false;
             //btn submit turn false

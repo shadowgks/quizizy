@@ -14,10 +14,10 @@
 .bg_image {
     /* The image used */
     background-image: url("../img/22033.jpg");
-  
+
     /* Full height */
     height: 100vh;
-  
+
     /* Center and scale the image nicely */
     background-position: center;
     background-repeat: no-repeat;
@@ -50,17 +50,20 @@ button{
     @extend %center-elements;
     display: flex;
     flex-direction: column;
-    transform: translate(-50%,-50%) scale(1);
+    @extend %animation;
     //logo
     .logo_image_side{
-        width: 300px
+        width: 300px;
     }
     // Start Quize Stayling
     button{
         @extend %shadow;
         font-size: 20px;
-        color: $color-primary;
-        background-color: $color-white;
+        color: $color-white;
+        background: linear-gradient(to right, #4786D4, #F40051);
+    }
+    &:hover .logo_image_side{
+        filter: drop-shadow(10px 2px 20px #f91d66);
     }
 }
 
@@ -69,6 +72,7 @@ button{
     display: none;
     @extend %shadow;
     @extend %box-center;
+    @extend %animation;
     // info_header
     .info_header{
         display: flex;
@@ -106,6 +110,7 @@ button{
 .box_user{
     display: none;
     @extend %shadow;
+    @extend %animation;
     .user{
         @extend %box-center;
         display: flex;
@@ -139,6 +144,7 @@ button{
     display: none;
     @extend %box-center;
     @extend %shadow;
+    @extend %animation;
     .quiz_header{
         display: flex;
         align-items: center;
@@ -242,6 +248,7 @@ button{
     display: none;
     @extend %box-center;
     @extend %shadow;
+    @extend %animation;
     text-align: center;
     font-size: 30px;
     .resultat_header{
@@ -260,30 +267,23 @@ button{
     }
 }
 
-// Answers
-%answers{
-    color: $color-white;
-    font-weight: 600;
-    padding: 20px 10px;
-    margin: 15px 0;
-    border-radius: 5px;
-}
+//answers
 .box_answers{
     display: none;
     @extend %center-elements;
     @extend %shadow;
+    @extend %animation;
     width: 500px;
-    height: 600px;
-    overflow: auto;
     background-color: $color-white;
     .answers_header{
         text-align: center;
         padding: 20px 0;
-        border-bottom: 1px solid $color-dark;
         box-shadow: 0px 15px 20px -18px rgba(66, 68, 90, 1);
     }
     .answers_body{
         padding: 20px 15px;
+        height: 450px;
+        overflow: auto;
         .answer{
             background-color: $color-success;
             @extend %answers;
@@ -314,9 +314,7 @@ button{
     }
     .answers_footer{
         text-align: center;
-        .quit{
-            margin-bottom: 20px;
-        }
+        margin: 20px;
     }
 }
 
