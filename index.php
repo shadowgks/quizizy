@@ -96,11 +96,14 @@
             <div class="quiz_footer">
                 <p><span class="step"></span> of <span class="all"></span> Questions</p>
                 <div>
-                    <button class="submit">Submit</button>
+                    <!-- <form action="post"> -->
+                        <button class="submit">Submit</button>
+                    <!-- </form> -->
                     <button class="next">Next</button>
                 </div>
             </div>
         </div>
+
 
         <!-- resultat -->
         <div class="box_resultat">

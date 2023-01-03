@@ -11,8 +11,7 @@ class DB
     {
         // Connect to the database
         try {
-            $conn = new PDO("mysql:host=" . self::$dbHost . ";dbname=" . self::$dbName . ';', self::$dbUsername, self::$dbPassword);
-            $conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+            $conn = new PDO("mysql:host=" . self::$dbHost . ";dbname=" . self::$dbName . ';', self::$dbUsername, self::$dbPassword, array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8', PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC));
         } catch (PDOException $e) {
             die("Failed to connect with MySQL: " . $e->getMessage());
         }

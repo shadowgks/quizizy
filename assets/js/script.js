@@ -57,8 +57,8 @@ btn_continue[1].addEventListener('click',()=>{
         box_user.style.display = 'none';
         box_quiz.style.display = 'block';
 
-        //btn submit turn true
-        btn_submit.disabled = true;
+        // //btn submit turn true
+        // btn_submit.disabled = true;
         
         //name user
         name_user = user_input.value;
@@ -76,12 +76,13 @@ btn_continue[2].addEventListener('click',()=>{
 
 // ===========================================================================
 //Ajax
-let reponseOfData; // declare global variable test
+let reponseOfData; // declare global variable reponseOfData
 $.ajax({
-    url: "assets/js/quizizy.json",
+    url: "assets/js/newData.json",
     type: 'GET',
     success: function (res) {
         reponseOfData = res;
+        console.log(reponseOfData);
     },
     async: false // make ajax request synchronous
 });
@@ -89,111 +90,125 @@ $.ajax({
 // ===========================================================================
 //if clicked btn next question
 let next_count = 0;
+let array_answers_id = [];
 btn_next.addEventListener('click',nextQuestions);
 
 function nextQuestions(){
-    
+    const question  = document.querySelectorAll('.questions .question');
     if(next_count < reponseOfData.length - 1){
         next_count++;
         showData(next_count);
         clearInterval(counter_interval);
         startTimer(time_value);
-        // btn_next.disabled = true;
+        //Add data selected user from array_answers
+        array_answers_id.push(user_answer_id);
     }else{
-        box_quiz.style.display = 'none';
-        box_resultat.style.display = 'block';
-        resultatUser();
+        array_answers_id.push(user_answer_id);
+        //btn submit display block
+        btn_submit.style.display = 'block';
+        //btn next display none
+        btn_next.style.display = 'none';
+        //loop questions and disabled him
+        question.forEach(item=>{
+            item.classList.add("disabled");
+        })
     }
+    // else{
+    //     box_quiz.style.display = 'none';
+    //     box_resultat.style.display = 'block';
+    //     resultatUser();
+    // }
 }
+console.log(array_answers_id);
 
 // ===========================================================================
 //BoxQuizez
 //Get data for random questions
 const rand_data = reponseOfData.sort(()=>Math.random() - 0.5);
-const arr = [0,1,2,3];
-const rand_data_menu = arr.sort(()=>Math.random() - 0.5);
+// const arr = [0,1,2,3];
+// const rand_data_menu = arr.sort(()=>Math.random() - 0.5);
 function showData(index){
     //Select box quiz
     const quiz_title         = document.querySelector('.box_quiz .title');
     const quiz_questions     = document.querySelector('.box_quiz .questions');
     quiz_title.innerHTML     = '<h2>'+ (index+1) +' - '+ rand_data[index].question +'</h2>';
-    quiz_questions.innerHTML =    '<div><div class="question" onclick="questionSelected(this)"><p>'+ rand_data[index].info[rand_data_menu[0]] +'</p></div>'
-                                + '<div class="question" onclick="questionSelected(this)"><p>'+ rand_data[index].info[rand_data_menu[1]] +'</p></div></div>'
-                                + '<div><div class="question" onclick="questionSelected(this)"><p>'+ rand_data[index].info[rand_data_menu[2]] +'</p></div>'
-                                + '<div class="question" onclick="questionSelected(this)"><p>'+ rand_data[index].info[rand_data_menu[3]] +'</p></div></div>';
+    quiz_questions.innerHTML =    '<div><div class="question" answer_id='+ rand_data[index].answer[0]['id'] +' onclick="questionSelected(this)"><p>'+ rand_data[index].answer[0]['choix'] +'</p></div>'
+                                + '<div class="question" answer_id='+ rand_data[index].answer[1]['id'] +' onclick="questionSelected(this)"><p>'+ rand_data[index].answer[1]['choix'] +'</p></div></div>'
+                                + '<div><div class="question" answer_id='+ rand_data[index].answer[2]['id'] +' onclick="questionSelected(this)"><p>'+ rand_data[index].answer[2]['choix'] +'</p></div>'
+                                + '<div class="question" answer_id='+ rand_data[index].answer[3]['id'] +' onclick="questionSelected(this)"><p>'+ rand_data[index].answer[3]['choix'] +'</p></div></div>';
 
     //Counter questions
     countQuestions(index+1, reponseOfData.length);
 
-    //btn next turn true
+    //btn submit turn false
     btn_next.disabled = true;
 }
 
 
 // ===========================================================================
 //Selected questions
-let user_answer;
+let user_answer_id;
 function questionSelected(answer){
-    //select element question
-    user_answer     = answer;
+
+    user_answer_id  = answer.getAttribute('answer_id');
     const question  = document.querySelectorAll('.questions .question');
 
     //loop question and remove selected
     question.forEach(item=>{
         item.classList.remove("selected");
     });
-    user_answer.classList.toggle("selected");
-    
+    answer.classList.toggle("selected");
+
     //btn submit turn false
-    btn_submit.disabled = false;
+    btn_next.disabled = false;
 }
 
-//if click btn submit
-btn_submit.addEventListener("click",()=>{
-    //Select Element
-    const correct_answer  = reponseOfData[next_count].answers;
-    const question        = document.querySelectorAll('.questions .question');
+// //if click btn submit
+// btn_submit.addEventListener("click",()=>{
+//     //Select Element
+//     // const correct_answer  = reponseOfData[next_count].answers;
+//     const question        = document.querySelectorAll('.questions .question');
 
-    //Clear Interval
-    clearInterval(counter_interval);
+//     //Clear Interval
+//     clearInterval(counter_interval);
 
-    //Check Answer
-    if(user_answer.textContent === correct_answer){
-        user_answer.classList.add("correct");
-        icrument_correct_answer++;
-        user_answer.insertAdjacentHTML('beforeend',icon_correct);
-        //btn next turn true
-        btn_next.disabled = false;
-        //btn submit turn false
-        btn_submit.disabled = true;
-    }else{
-        user_answer.classList.add("incorrect");
-        user_answer.insertAdjacentHTML('beforeend',icon_incorrect);
-        //btn next turn true
-        btn_next.disabled = false;
-        //btn submit turn false
-        btn_submit.disabled = true;
+//     // //Check Answer
+//     // if(user_answer.textContent === correct_answer){
+//     //     user_answer.classList.add("correct");
+//     //     icrument_correct_answer++;
+//     //     user_answer.insertAdjacentHTML('beforeend',icon_correct);
+//     //     //btn next turn true
+//     //     btn_next.disabled = false;
+//     //     //btn submit turn false
+//     //     btn_submit.disabled = true;
+//     // }else{
+//     //     user_answer.classList.add("incorrect");
+//     //     user_answer.insertAdjacentHTML('beforeend',icon_incorrect);
+//     //     //btn next turn true
+//     //     btn_next.disabled = false;
+//     //     //btn submit turn false
+//     //     btn_submit.disabled = true;
 
-        //Final partie Correction Answers Users Here!
-        //Select Elements
-        const answers_body = document.querySelector('.box_answers .answers_body');
-        answers_body.innerHTML += '<div class="row">'
-                                + '<h3>'+ reponseOfData[next_count].id +' - '+ reponseOfData[next_count].question +'</h3>'
-                                + '<div class="col"><span>Your Answer</span>'
-                                + '<p class="your_answer">'+ user_answer.textContent +'</p>'
-                                + '<span>Correct Answer</span>'
-                                + '<p class="answer">'+ correct_answer +'</p>'
-                                + '<span>Explication</span>'
-                                + '<p class="explication">'+ reponseOfData[next_count].explication +'</p>'
-                                + '</div><hr>'
-                                +'</div>';
-    }
+//     //     //Final partie Correction Answers Users Here!
+//     //     //Select Elements
+//     //     const answers_body = document.querySelector('.box_answers .answers_body');
+//     //     answers_body.innerHTML += '<div class="row">'
+//     //                             + '<h3>'+ reponseOfData[next_count].id +' - '+ reponseOfData[next_count].question +'</h3>'
+//     //                             + '<div class="col"><span>Your Answer</span>'
+//     //                             + '<p class="your_answer">'+ user_answer.textContent +'</p>'
+//     //                             + '<span>Correct Answer</span>'
+//     //                             + '<p class="answer">'+ correct_answer +'</p>'
+//     //                             + '<span>Explication</span>'
+//     //                             + '<p class="explication">'+ reponseOfData[next_count].explication +'</p>'
+//     //                             + '</div><hr>'
+//     //                             +'</div>';
+//     // }
 
-    //loop questions and disabled him
-    question.forEach(item=>{
-        item.classList.add("disabled");
-    })
-});
+//     //loop questions and disabled him
+//     question.forEach(item=>{
+//         item.classList.add("disabled");
+//     })
+// });
 
 // ===========================================================================
 // count question
@@ -209,33 +224,35 @@ function countQuestions(n,length_data){
 //Counter interval 
 let counter_interval;
 //Time value
-let time_value = 5;
+let time_value = 100;
 function startTimer(time){
     function timer(){
-        const correct_answer        = reponseOfData[next_count].answers;
-        const question              = document.querySelectorAll('.questions .question');
+        // const correct_answer        = reponseOfData[next_count].answers;
+        // const question              = document.querySelectorAll('.questions .question');
         span_time_count.textContent = time;
         time--;
         if(time < 0){
             clearInterval(counter_interval);
-
-            //auto selected correct answer
-            question.forEach(item => {
-                if(item.textContent == correct_answer){
-                    item.setAttribute("class","question correct");
-                    item.insertAdjacentHTML('beforeend',icon_correct);
-                }
-            })
-            
-            //btn next turn true
-            btn_next.disabled = false;
             //btn submit turn false
-            btn_submit.disabled = true;
+            btn_next.disabled = false;
+            btn_next.click();
+            //auto selected correct answer
+            // question.forEach(item => {
+            //     if(item.textContent == correct_answer){
+            //         item.setAttribute("class","question correct");
+            //         item.insertAdjacentHTML('beforeend',icon_correct);
+            //     }
+            // })
+            
+            // //btn next turn true
+            // btn_next.disabled = false;
+            // //btn submit turn false
+            // btn_submit.disabled = true;
 
             //loop questions and disabled him
-            question.forEach(item=>{
-            item.classList.add("disabled");
-            })
+            // question.forEach(item=>{
+            // item.classList.add("disabled");
+            // })
         }
     }
     counter_interval = setInterval(timer,1000);
@@ -252,3 +269,17 @@ function resultatUser(){
     span_resultat.children[0].textContent = icrument_correct_answer;
     span_resultat.children[1].textContent = reponseOfData.length;
 }
+
+document.querySelector('.submit').addEventListener('click',function(){
+
+
+    $.post("ControllerQuizizz.php",
+    {
+        arr:JSON.stringify(array_answers_id),
+    },
+    function(data){
+
+    }
+    );
+    
+})

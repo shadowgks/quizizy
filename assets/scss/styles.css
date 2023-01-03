@@ -262,13 +262,9 @@ button.continue {
   font-weight: 600;
 }
 .box_quiz .quiz_footer .submit {
-  background-color: #28a745;
+  display: none;
+  background-color: #dc3545;
   color: #fff;
-}
-.box_quiz .quiz_footer .submit[disabled] {
-  background-color: #efe1f9;
-  color: #000;
-  font-weight: 600;
 }
 
 .box_resultat {

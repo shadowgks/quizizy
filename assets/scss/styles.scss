@@ -249,13 +249,14 @@ button{
             }
         }
         .submit{
-            background-color: $color-success;
+            display: none;
+            background-color: $color-danger;
             color: $color-white;
-            &[disabled]{
-                background-color: $color-primary-25;
-                color: $color-dark;
-                font-weight: 600;
-            }
+            // &[disabled]{
+            //     background-color: $color-primary-25;
+            //     color: $color-dark;
+            //     font-weight: 600;
+            // }
         }
     }
 }
