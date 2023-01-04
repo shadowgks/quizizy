@@ -72,10 +72,31 @@ btn_continue[1].addEventListener('click',()=>{
 btn_continue[2].addEventListener('click',()=>{
     box_resultat.style.display = 'none';
     box_answers.style.display = 'block';
+    // let wrong_answers; // declare global variable
+    // $.POST({
+    //     url: "ControllerQuizizz.php",
+    
+    //     your_answer:true,
+    //     success: function(res){
+    //         console.log(res);
+    //         // correctWrongAnswers(res);
+    //     },
+    //     async: false // make ajax request synchronous
+    // })
+
+    // $.post("ControllerQuizizz.php",
+    // {
+    //     your_answer : true,
+    // },function(data){
+    //     console.log('test');
+    //     console.log(JSON.parse(data));
+    // }
+
+    // );
 });
 
 // ===========================================================================
-//Ajax
+//Ajax Get Data
 let reponseOfData; // declare global variable reponseOfData
 $.ajax({
     url: "assets/js/newData.json",
@@ -87,23 +108,40 @@ $.ajax({
     async: false // make ajax request synchronous
 });
 
+
 // ===========================================================================
 //if clicked btn next question
 let next_count = 0;
-let array_answers_id = [];
+let array_answers = [];
 btn_next.addEventListener('click',nextQuestions);
-
 function nextQuestions(){
     const question  = document.querySelectorAll('.questions .question');
     if(next_count < reponseOfData.length - 1){
+        
+        //Icrement data
         next_count++;
+        //Declared Function
         showData(next_count);
         clearInterval(counter_interval);
         startTimer(time_value);
-        //Add data selected user from array_answers
-        array_answers_id.push(user_answer_id);
+
+        //create object and add data
+        let obj = {
+            id          : user_answer_id,
+            question    : reponseOfData[next_count].question,
+            answer      : user_answer_content,
+            explication : reponseOfData[next_count].explication,
+        }
+        //push obj from array 
+        array_answers.push(obj);
+        console.log(array_answers);
     }else{
-        array_answers_id.push(user_answer_id);
+        // let obj={
+        //     question:reponseOfData[index].question,
+        //     answer:user_answer_id
+        // }
+        // array_answers_id.push(obj);
+        // console.log(array_answers_id)
         //btn submit display block
         btn_submit.style.display = 'block';
         //btn next display none
@@ -113,13 +151,13 @@ function nextQuestions(){
             item.classList.add("disabled");
         })
     }
+    
     // else{
     //     box_quiz.style.display = 'none';
     //     box_resultat.style.display = 'block';
-    //     resultatUser();
+    //     scoreUser();
     // }
 }
-console.log(array_answers_id);
 
 // ===========================================================================
 //BoxQuizez
@@ -132,10 +170,10 @@ function showData(index){
     const quiz_title         = document.querySelector('.box_quiz .title');
     const quiz_questions     = document.querySelector('.box_quiz .questions');
     quiz_title.innerHTML     = '<h2>'+ (index+1) +' - '+ rand_data[index].question +'</h2>';
-    quiz_questions.innerHTML =    '<div><div class="question" answer_id='+ rand_data[index].answer[0]['id'] +' onclick="questionSelected(this)"><p>'+ rand_data[index].answer[0]['choix'] +'</p></div>'
-                                + '<div class="question" answer_id='+ rand_data[index].answer[1]['id'] +' onclick="questionSelected(this)"><p>'+ rand_data[index].answer[1]['choix'] +'</p></div></div>'
-                                + '<div><div class="question" answer_id='+ rand_data[index].answer[2]['id'] +' onclick="questionSelected(this)"><p>'+ rand_data[index].answer[2]['choix'] +'</p></div>'
-                                + '<div class="question" answer_id='+ rand_data[index].answer[3]['id'] +' onclick="questionSelected(this)"><p>'+ rand_data[index].answer[3]['choix'] +'</p></div></div>';
+    quiz_questions.innerHTML = '<div><div class="question" answer_id='+ rand_data[index].answer[0]['id'] +' onclick="questionSelected(this)"><p>'+ rand_data[index].answer[0]['choix'] +'</p></div>'
+                            + '<div class="question" answer_id='+ rand_data[index].answer[1]['id'] +' onclick="questionSelected(this)"><p>'+ rand_data[index].answer[1]['choix'] +'</p></div></div>'
+                            + '<div><div class="question" answer_id='+ rand_data[index].answer[2]['id'] +' onclick="questionSelected(this)"><p>'+ rand_data[index].answer[2]['choix'] +'</p></div>'
+                            + '<div class="question" answer_id='+ rand_data[index].answer[3]['id'] +' onclick="questionSelected(this)"><p>'+ rand_data[index].answer[3]['choix'] +'</p></div></div>';
 
     //Counter questions
     countQuestions(index+1, reponseOfData.length);
@@ -148,10 +186,12 @@ function showData(index){
 // ===========================================================================
 //Selected questions
 let user_answer_id;
+let user_answer_content;
 function questionSelected(answer){
 
-    user_answer_id  = answer.getAttribute('answer_id');
-    const question  = document.querySelectorAll('.questions .question');
+    user_answer_id      = answer.getAttribute('answer_id');
+    user_answer_content = answer.textContent;
+    const question      = document.querySelectorAll('.questions .question');
 
     //loop question and remove selected
     question.forEach(item=>{
@@ -260,26 +300,60 @@ function startTimer(time){
 
 // ===========================================================================
 //Resultat
-function resultatUser(){
+function scoreUser(score){
     //Select Element
     const span_resultat = document.querySelector(".box_resultat .score p");
     const span_user     = document.querySelector(".box_resultat .name_user h4");
 
     span_user.textContent = name_user;
-    span_resultat.children[0].textContent = icrument_correct_answer;
+    span_resultat.children[0].textContent = score;
     span_resultat.children[1].textContent = reponseOfData.length;
 }
 
-document.querySelector('.submit').addEventListener('click',function(){
+//=======================================================================
+//btn Submit
+btn_submit.addEventListener('click',function(){
 
+    //hide boxQuiz
+    box_quiz.style.display = 'none';
+    box_resultat.style.display = 'block';
 
+    //clear interval
+    clearInterval(counter_interval);
+    array_answers.sort((a,b) => a.id - b.id);
+    console.log(array_answers);
+    //Ajax
     $.post("ControllerQuizizz.php",
     {
-        arr:JSON.stringify(array_answers_id),
-    },
-    function(data){
+        your_answer : JSON.stringify(array_answers),
+    },function(data){
+        //parce data reponse
+        data_parce = JSON.parse(data);
 
+        //declared Function scoreUser and correctWrongAnswers
+        correctWrongAnswers(data_parce['result']);
+        scoreUser(data_parce['score']);
     }
     );
-    
-})
+});
+
+//=========================================================================
+//Final partie Correction Answers Users Here!
+function correctWrongAnswers(data){
+    //Select Elements
+    const answers_body = document.querySelector('.box_answers .answers_body');
+
+    //Loop data
+    for($i=0; $i<data.length; $i++){
+        answers_body.innerHTML += '<div class="row">'
+                            + '<h3>'+ next_count+1 +' - '+ data[$i].question +'</h3>'
+                            + '<div class="col"><span>Your Answer</span>'
+                            + '<p class="your_answer">'+ data[$i].wrong_answer +'</p>'
+                            + '<span>Correct Answer</span>'
+                            + '<p class="answer">'+ data[$i].right_answer +'</p>'
+                            + '<span>Explication</span>'
+                            + '<p class="explication">'+ data[$i].explication +'</p>'
+                            + '</div><hr>'
+                            +'</div>';
+    }
+}

@@ -35,9 +35,10 @@ class GetData
     {
         $questions = $this->Questions();
         $answers   = $this->Answers();
-        $data = array();
+
+        $data = array(); //empty array
         for ($i = 0; $i < count($questions); $i++) {
-            $answers_array = array();
+            $answers_array = array(); //empty array
             for ($j = 0; $j < count($answers); $j++) {
                 if ($questions[$i]['id'] == $answers[$j]['id_question']) {
                     $object = array(
@@ -56,5 +57,24 @@ class GetData
             array_push($data, $join);
         }
         return json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+    }
+
+    //check answer data
+    function answerCorrect()
+    {
+        global $conn;
+        //READ
+        try {
+            $stm = $conn->prepare(
+                "SELECT a.id,a.answer,a.etat, q.question,q.explication 
+                FROM answers a join questions q
+                on a.id_question = q.id
+                WHERE a.etat = 1"
+            );
+            $stm->execute();
+            return $stm->fetchAll();
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
     }
 }
