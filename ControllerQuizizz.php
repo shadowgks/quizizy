@@ -3,7 +3,7 @@ include_once 'ModalQuizizz.php';
 
 $get_data  = new GetData();
 $data      = $get_data->Quiz();
-$check_db     = $get_data->answerCorrect();
+$check_db  = $get_data->answerCorrect();
 
 
 //fill from file newData.json

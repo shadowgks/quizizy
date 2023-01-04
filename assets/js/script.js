@@ -56,15 +56,12 @@ btn_continue[1].addEventListener('click',()=>{
     }else{
         box_user.style.display = 'none';
         box_quiz.style.display = 'block';
-
-        // //btn submit turn true
-        // btn_submit.disabled = true;
         
         //name user
         name_user = user_input.value;
 
         //Dec Fun time and data
-        showData(0);
+        showData(next_count);
         startTimer(time_value);
     }
 });
@@ -72,27 +69,6 @@ btn_continue[1].addEventListener('click',()=>{
 btn_continue[2].addEventListener('click',()=>{
     box_resultat.style.display = 'none';
     box_answers.style.display = 'block';
-    // let wrong_answers; // declare global variable
-    // $.POST({
-    //     url: "ControllerQuizizz.php",
-    
-    //     your_answer:true,
-    //     success: function(res){
-    //         console.log(res);
-    //         // correctWrongAnswers(res);
-    //     },
-    //     async: false // make ajax request synchronous
-    // })
-
-    // $.post("ControllerQuizizz.php",
-    // {
-    //     your_answer : true,
-    // },function(data){
-    //     console.log('test');
-    //     console.log(JSON.parse(data));
-    // }
-
-    // );
 });
 
 // ===========================================================================
@@ -136,12 +112,6 @@ function nextQuestions(){
         array_answers.push(obj);
         console.log(array_answers);
     }else{
-        // let obj={
-        //     question:reponseOfData[index].question,
-        //     answer:user_answer_id
-        // }
-        // array_answers_id.push(obj);
-        // console.log(array_answers_id)
         //btn submit display block
         btn_submit.style.display = 'block';
         //btn next display none
@@ -151,12 +121,6 @@ function nextQuestions(){
             item.classList.add("disabled");
         })
     }
-    
-    // else{
-    //     box_quiz.style.display = 'none';
-    //     box_resultat.style.display = 'block';
-    //     scoreUser();
-    // }
 }
 
 // ===========================================================================
@@ -203,53 +167,6 @@ function questionSelected(answer){
     btn_next.disabled = false;
 }
 
-// //if click btn submit
-// btn_submit.addEventListener("click",()=>{
-//     //Select Element
-//     // const correct_answer  = reponseOfData[next_count].answers;
-//     const question        = document.querySelectorAll('.questions .question');
-
-//     //Clear Interval
-//     clearInterval(counter_interval);
-
-//     // //Check Answer
-//     // if(user_answer.textContent === correct_answer){
-//     //     user_answer.classList.add("correct");
-//     //     icrument_correct_answer++;
-//     //     user_answer.insertAdjacentHTML('beforeend',icon_correct);
-//     //     //btn next turn true
-//     //     btn_next.disabled = false;
-//     //     //btn submit turn false
-//     //     btn_submit.disabled = true;
-//     // }else{
-//     //     user_answer.classList.add("incorrect");
-//     //     user_answer.insertAdjacentHTML('beforeend',icon_incorrect);
-//     //     //btn next turn true
-//     //     btn_next.disabled = false;
-//     //     //btn submit turn false
-//     //     btn_submit.disabled = true;
-
-//     //     //Final partie Correction Answers Users Here!
-//     //     //Select Elements
-//     //     const answers_body = document.querySelector('.box_answers .answers_body');
-//     //     answers_body.innerHTML += '<div class="row">'
-//     //                             + '<h3>'+ reponseOfData[next_count].id +' - '+ reponseOfData[next_count].question +'</h3>'
-//     //                             + '<div class="col"><span>Your Answer</span>'
-//     //                             + '<p class="your_answer">'+ user_answer.textContent +'</p>'
-//     //                             + '<span>Correct Answer</span>'
-//     //                             + '<p class="answer">'+ correct_answer +'</p>'
-//     //                             + '<span>Explication</span>'
-//     //                             + '<p class="explication">'+ reponseOfData[next_count].explication +'</p>'
-//     //                             + '</div><hr>'
-//     //                             +'</div>';
-//     // }
-
-//     //loop questions and disabled him
-//     question.forEach(item=>{
-//         item.classList.add("disabled");
-//     })
-// });
-
 // ===========================================================================
 // count question
 function countQuestions(n,length_data){
@@ -267,8 +184,6 @@ let counter_interval;
 let time_value = 100;
 function startTimer(time){
     function timer(){
-        // const correct_answer        = reponseOfData[next_count].answers;
-        // const question              = document.querySelectorAll('.questions .question');
         span_time_count.textContent = time;
         time--;
         if(time < 0){
@@ -276,23 +191,6 @@ function startTimer(time){
             //btn submit turn false
             btn_next.disabled = false;
             btn_next.click();
-            //auto selected correct answer
-            // question.forEach(item => {
-            //     if(item.textContent == correct_answer){
-            //         item.setAttribute("class","question correct");
-            //         item.insertAdjacentHTML('beforeend',icon_correct);
-            //     }
-            // })
-            
-            // //btn next turn true
-            // btn_next.disabled = false;
-            // //btn submit turn false
-            // btn_submit.disabled = true;
-
-            //loop questions and disabled him
-            // question.forEach(item=>{
-            // item.classList.add("disabled");
-            // })
         }
     }
     counter_interval = setInterval(timer,1000);
@@ -344,15 +242,15 @@ function correctWrongAnswers(data){
     const answers_body = document.querySelector('.box_answers .answers_body');
 
     //Loop data
-    for($i=0; $i<data.length; $i++){
+    for(let i=0; i<data.length; i++){
         answers_body.innerHTML += '<div class="row">'
-                            + '<h3>'+ next_count+1 +' - '+ data[$i].question +'</h3>'
+                            + '<h3>'+ (i+1) +' - '+ data[i].question +'</h3>'
                             + '<div class="col"><span>Your Answer</span>'
-                            + '<p class="your_answer">'+ data[$i].wrong_answer +'</p>'
+                            + '<p class="your_answer">'+ data[i].wrong_answer +'</p>'
                             + '<span>Correct Answer</span>'
-                            + '<p class="answer">'+ data[$i].right_answer +'</p>'
+                            + '<p class="answer">'+ data[i].right_answer +'</p>'
                             + '<span>Explication</span>'
-                            + '<p class="explication">'+ data[$i].explication +'</p>'
+                            + '<p class="explication">'+ data[i].explication +'</p>'
                             + '</div><hr>'
                             +'</div>';
     }
