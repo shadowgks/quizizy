@@ -1,15 +1,14 @@
 <?php
 include_once 'db/dbQuizizz.php';
-$conn = DB::dbConnection();
+DB::dbConnection();
 
 class GetData
 {
     private function Questions()
     {
-        global $conn;
         //READ
         try {
-            $stm = $conn->prepare("SELECT * FROM questions");
+            $stm = DB::dbConnection()->prepare("SELECT * FROM questions");
             $stm->execute();
             return $stm->fetchAll();
         } catch (Exception $e) {
@@ -22,7 +21,7 @@ class GetData
         global $conn;
         //READ
         try {
-            $stm = $conn->prepare("SELECT * FROM answers");
+            $stm = DB::dbConnection()->prepare("SELECT * FROM answers");
             $stm->execute();
             return $stm->fetchAll();
         } catch (Exception $e) {
@@ -59,13 +58,13 @@ class GetData
         return json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
     }
 
-    //check answer data
+    //check answer data etat 1
     function answerCorrect()
     {
         global $conn;
         //READ
         try {
-            $stm = $conn->prepare(
+            $stm = DB::dbConnection()->prepare(
                 "SELECT a.id,a.answer,a.etat, q.question,q.explication 
                 FROM answers a join questions q
                 on a.id_question = q.id

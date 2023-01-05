@@ -12,9 +12,6 @@ const btn_next          = document.querySelector("button.next");
 const btn_submit        = document.querySelector("button.submit");
 //time
 const span_time_count   = document.querySelector(".box_quiz .count");
-//icons
-const icon_correct      = '<i class="fa-regular fa-circle-check good"></i>';
-const icon_incorrect    = '<i class="fa-regular fa-circle-xmark faild"></i>';
 //user input
 const user_input        = document.querySelector('#name_user');
 //img logo
@@ -61,7 +58,7 @@ btn_continue[1].addEventListener('click',()=>{
         name_user = user_input.value;
 
         //Dec Fun time and data
-        showData(next_count);
+        showData(0);
         startTimer(time_value);
     }
 });
@@ -79,7 +76,6 @@ $.ajax({
     type: 'GET',
     success: function (res) {
         reponseOfData = res;
-        console.log(reponseOfData);
     },
     async: false // make ajax request synchronous
 });
@@ -93,24 +89,23 @@ btn_next.addEventListener('click',nextQuestions);
 function nextQuestions(){
     const question  = document.querySelectorAll('.questions .question');
     if(next_count < reponseOfData.length - 1){
-        
-        //Icrement data
-        next_count++;
-        //Declared Function
-        showData(next_count);
-        clearInterval(counter_interval);
-        startTimer(time_value);
-
         //create object and add data
         let obj = {
             id          : user_answer_id,
-            question    : reponseOfData[next_count].question,
             answer      : user_answer_content,
+            question    : reponseOfData[next_count].question,
             explication : reponseOfData[next_count].explication,
         }
         //push obj from array 
         array_answers.push(obj);
-        console.log(array_answers);
+        
+        //Icrement data
+        next_count++;
+
+        //Declared Function
+        showData(next_count);
+        clearInterval(counter_interval);
+        startTimer(time_value);
     }else{
         //btn submit display block
         btn_submit.style.display = 'block';
@@ -181,7 +176,7 @@ function countQuestions(n,length_data){
 //Counter interval 
 let counter_interval;
 //Time value
-let time_value = 100;
+let time_value = 30;
 function startTimer(time){
     function timer(){
         span_time_count.textContent = time;
@@ -219,7 +214,7 @@ btn_submit.addEventListener('click',function(){
     //clear interval
     clearInterval(counter_interval);
     array_answers.sort((a,b) => a.id - b.id);
-    console.log(array_answers);
+
     //Ajax
     $.post("ControllerQuizizz.php",
     {
